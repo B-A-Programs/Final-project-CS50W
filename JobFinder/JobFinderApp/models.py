@@ -3,24 +3,30 @@ from django.db import models
 
 
 class User(AbstractUser):
-    description = models.CharField(max_length=500, blank=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
 
-class job_experiences(models.Model):
+class Job_experiences(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="jobs")
     company_name = models.CharField(max_length=50)
     position = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
 
-class languages(models.Model):
+class Languages(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="languages")
     language = models.CharField(max_length=50)
     level = models.CharField(max_length=50)
 
-class education(models.Model):
+class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="education")
     institution = models.CharField(max_length=50)
     level = models.CharField(max_length=50)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+
+class Courses(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="courses")
+    name = models.CharField(max_length=50)
+    institution = models.CharField(max_length=50)
