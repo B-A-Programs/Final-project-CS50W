@@ -14,6 +14,11 @@ from .models import User
 def index(request):
     return render(request, "JobFinderApp/index.html")
     
+def profile(request, username):
+    return render(request, "JobFinderApp/profile.html", {
+        "user": User.objects.get(username = username)
+    })
+
 def login_view(request):
     if request.method == "POST":
 
@@ -43,6 +48,8 @@ def register(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
+        first = request.POST["first_name"]
+        last = request.POST["last_name"]
 
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -54,7 +61,7 @@ def register(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username, email, password)
+            user = User.objects.create_user(username=username, email=email, password=password, last_name=last, first_name=first)
             user.save()
         except IntegrityError:
             return render(request, "JobFinderApp/register.html", {
