@@ -14,11 +14,13 @@ from .models import User, Job_experiences, Languages, Education, Courses
 def index(request):
     return render(request, "JobFinderApp/index.html")
     
+# Returns the profile of a person
 def profile(request, username):
     return render(request, "JobFinderApp/profile.html", {
         "person": User.objects.get(username = username)
     })
 
+# Lets the user delete their added qualities
 def delete(request, id):
     if request.method == "POST":
         if request.POST["op"] == "job" and Job_experiences.objects.get(pk = id).user == request.user:
@@ -32,8 +34,10 @@ def delete(request, id):
         
         return redirect("profile", request.user.username)
 
+# Lets a user add qualities
 def edit(request, username):
     if request.method == "GET":
+        # Return edit page is user is the same as the request user
         if(request.user.username == username):
             return render(request, "JobFinderApp/edit.html", {
                 "person": User.objects.get(username = username)
@@ -41,6 +45,7 @@ def edit(request, username):
         else:
             return redirect('index')
     elif request.method == "POST":
+        # Check if request user is the same as the user to be updated
         if request.user.username == username:
             user = User.objects.get(username = username)
             if request.POST["op"] == "desc":
