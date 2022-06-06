@@ -16,14 +16,27 @@ def index(request):
     
 def profile(request, username):
     return render(request, "JobFinderApp/profile.html", {
-        "user": User.objects.get(username = username)
+        "person": User.objects.get(username = username)
     })
+
+def delete(request, id):
+    if request.method == "POST":
+        if request.POST["op"] == "job" and Job_experiences.objects.get(pk = id).user == request.user:
+            Job_experiences.objects.get(pk = id).delete()
+        elif request.POST["op"] == "educ" and Education.objects.get(pk = id).user == request.user:
+            Education.objects.get(pk = id).delete()
+        elif request.POST["op"] == "lang" and Languages.objects.get(pk = id).user == request.user:
+            Languages.objects.get(pk = id).delete()
+        elif request.POST["op"] == "course" and Courses.objects.get(pk = id).user == request.user:
+            Courses.objects.get(pk = id).delete()
+        
+        return redirect("profile", request.user.username)
 
 def edit(request, username):
     if request.method == "GET":
         if(request.user.username == username):
             return render(request, "JobFinderApp/edit.html", {
-                "user": User.objects.get(username = username)
+                "person": User.objects.get(username = username)
             })
         else:
             return redirect('index')
@@ -40,8 +53,9 @@ def edit(request, username):
                 description = request.POST["description"]
                 start = request.POST["start_date"]
                 end = request.POST["end_date"]
-                job = Job_experiences.objects.create(user=user, company_name=company, position=position, description=description, start_date=start, end_date=end)
-                job.save()
+                if(start <= end):
+                    job = Job_experiences.objects.create(user=user, company_name=company, position=position, description=description, start_date=start, end_date=end)
+                    job.save()
             elif request.POST["op"] == "lang":
                 language = request.POST["language"]
                 level = request.POST["level"]
@@ -52,8 +66,9 @@ def edit(request, username):
                 level = request.POST["level"]
                 start = request.POST["start_date"]
                 end = request.POST["end_date"]
-                educ = Education.objects.create(user=user, institution=institution, level=level, start_date=start, end_date=end)
-                educ.save()
+                if(start <= end):
+                    educ = Education.objects.create(user=user, institution=institution, level=level, start_date=start, end_date=end)
+                    educ.save()
             elif request.POST["op"] == "course":
                 institution = request.POST["institution"]
                 name = request.POST["name"]

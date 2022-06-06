@@ -16,7 +16,7 @@
         <form action="{% url 'edit' user.username %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="op" value="desc"> 
-            <textarea class="form-control" name="description" placeholder="Description" required>{{ user.description }}</textarea>
+            <textarea class="form-control" name="description" placeholder="Description" required>{{ person.description }}</textarea>
             <button class="btn btn-outline-primary" type="submit">Update description</button>
         </form>
     </div>
