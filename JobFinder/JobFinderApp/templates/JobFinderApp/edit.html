@@ -4,15 +4,17 @@
 {% block script %}<script src="{% static 'JobFinderApp/javascript.js' %}"></script>{% endblock %}
 
 {% block body %}
-    <ul>
+    <div class="sidebar">
         <a href="" id="btn_desc">Update description</a>
         <a href="" id="btn_job">Update jobs</a>
         <a href="" id="btn_educ">Update education</a>
         <a href="" id="btn_lang">Update languages</a>
         <a href="" id="btn_course">Update courses</a>
-    </ul>
+    </div>
+
+    <div class="side-content">
     <div id="desc" style="display: none;">
-        Update description
+        <h1>Update description</h1>
         <form action="{% url 'edit' user.username %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="op" value="desc"> 
@@ -21,7 +23,7 @@
         </form>
     </div>
     <div id="job" style="display: none;">
-        Add past job experience
+        <h1>Add past job experience</h1>
         <form action="{% url 'edit' user.username %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="op" value="job"> 
@@ -38,7 +40,7 @@
         </form>
     </div>
     <div id="lang" style="display: none;">
-        Add a known language
+        <h1>Add a known language</h1>
         <form action="{% url 'edit' user.username %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="op" value="lang">
@@ -50,7 +52,7 @@
         </form>
     </div>
     <div id="educ" style="display: none;">
-        Add past education
+        <h1>Add past education</h1>
         <form action="{% url 'edit' user.username %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="op" value="educ">
@@ -66,7 +68,7 @@
         </form>
     </div>
     <div id="course" style="display: none;">
-        Add course taken
+        <h1>Add course taken</h1>
         <form action="{% url 'edit' user.username %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="op" value="course">
@@ -76,5 +78,6 @@
             </div>
             <button class="btn btn-outline-primary" type="submit">Add course</button>
         </form>
+    </div>
     </div>
 {% endblock %}

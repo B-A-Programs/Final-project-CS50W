@@ -1,121 +1,123 @@
 {% extends "JobFinderApp/layout.html" %}
 
 {% block body %}
-    <div style="padding: 10px;">
-        <h1 style="color:rgb(49, 37, 37);">{{ person.first_name }} {{ person.last_name }}</h1>
+    <div class="container-fluid" style="padding: 10px 30px">
+        <div style="padding: 10px;">
+            <h1 style="color:rgb(49, 37, 37);">{{ person.first_name }} {{ person.last_name }}</h1>
 
-        <div style="color: grey">
-            Born on: {{ person.birth_date }} | Email: {{ person.email }}
-            {% if request.user == person %}
-                | <a href="{% url 'edit' user.username %}">Edit profile</a>
+            <div style="color: grey">
+                Born on: {{ person.birth_date }} | Email: {{ person.email }}
+                {% if request.user == person %}
+                    | <a href="{% url 'edit' user.username %}">Edit profile</a>
+                {% endif %}
+            </div>
+
+            <hr>
+
+            {% if person.description %}
+                <div class="mt-5">
+                    <h3><strong>Description</strong></h3>
+                    <div class="d-flex flex-column">
+                        <div class="p-2">
+                            {{ person.description }}
+                        </div>
+                    </div>
+                </div>
+                <hr style="border-color: black; border-width: 2px;">
             {% endif %}
-        </div>
 
-        <hr>
-
-        {% if person.description %}
-            <div class="mt-5">
-                <h3><strong>Description</strong></h3>
-                <div class="d-flex flex-column">
-                    <div class="p-2">
-                        {{ person.description }}
-                    </div>
-                </div>
-            </div>
-            <hr style="border-color: black; border-width: 2px;">
-        {% endif %}
-
-        <h4><strong>Job experience</strong></h4>
-        {% for job in person.jobs.all %}
-            <div class="card post">
-                <div class="card-body pb-1">
-                    <h5 class="card-title mb-0">{{ job.position }} at {{ job.company_name }}</h5>
-                    {% if request.user == person %}
-                        <form action="{% url 'delete' job.id %}" method="POST">
-                            {% csrf_token %}
-                            <input hidden type="text" name="op" value="job">
-                            <button type="submit" class="btn-danger" style="float: right;">Delete</button>
-                        </form>
-                    {% endif %}
-                    <span style="color: grey;">From {{ job.start_date }} to {{ job.end_date }}</span>   
-                    <p class="mt-1">{{ job.description }}</p> 
-                </div>
-            </div>
-        {% empty %}
-            <div style="padding-left: 3%;">
-               Looks like this user hasn't added any past jobs yet!
-            </div>
-        {% endfor %}
-
-        <hr style="border-color: rgb(196, 189, 189); border-width: 2px;">
-
-        <h4><strong>Education</strong></h4>
-        {% for education in person.education.all %}
-            <div class="card post">
-                <div class="card-body">
-                    <h5 class="card-title mb-0">{{ education.institution }} - {{ education.level }}</h5>
-                    {% if request.user == person %}
-                        <form action="{% url 'delete' education.id %}" method="POST">
-                            {% csrf_token %}
-                            <input hidden type="text" name="op" value="educ">
-                            <button type="submit" class="btn-danger" style="float: right;">Delete</button>
-                        </form>
-                    {% endif %}
-                    <span style="color: grey;">From {{ education.start_date }} to {{ education.end_date }}</span>   
-                </div>
-            </div>
-        {% empty %}
-            <div style="padding-left: 3%;">
-                Looks like this user hasn't added any past education yet!
-            </div>
-        {% endfor %}
-
-        <hr style="border-color: rgb(196, 189, 189); border-width: 2px;">
-
-        <h4><strong>Languages</strong></h4>
-        <div class="row">
-        {% for language in person.languages.all %}
-                <div class="col-4 card post" style="display: inline-block;">
-                    <div class="card-body">
+            <h4><strong>Job experience</strong></h4>
+            {% for job in person.jobs.all %}
+                <div class="card post">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title mb-0">{{ job.position }} at {{ job.company_name }}</h5>
                         {% if request.user == person %}
-                            <form action="{% url 'delete' language.id %}" method="POST">
+                            <form action="{% url 'delete' job.id %}" method="POST">
                                 {% csrf_token %}
-                                <input hidden type="text" name="op" value="lang">
+                                <input hidden type="text" name="op" value="job">
                                 <button type="submit" class="btn-danger" style="float: right;">Delete</button>
                             </form>
                         {% endif %}
-                        <h5 class="card-title mb-0">{{ language.language }} - Level: {{ language.level }}</h5>
+                        <span style="color: grey;">From {{ job.start_date }} to {{ job.end_date }}</span>   
+                        <p class="mt-1">{{ job.description }}</p> 
                     </div>
                 </div>
-        {% empty %}
-            <div style="padding-left: 3%;">
-                Looks like this user hasn't added any known languages yet!
-            </div>
-        {% endfor %}
-        </div>
+            {% empty %}
+                <div style="padding-left: 3%;">
+                Looks like this user hasn't added any past jobs yet!
+                </div>
+            {% endfor %}
 
-        <hr style="border-color: rgb(196, 189, 189); border-width: 2px;">
+            <hr style="border-color: rgb(196, 189, 189); border-width: 2px;">
 
-        <h4><strong>Courses</strong></h4>
-        <div class="row">
-        {% for course in person.courses.all %}
-                <div class="col-4 card post" style="display: inline-block;">
+            <h4><strong>Education</strong></h4>
+            {% for education in person.education.all %}
+                <div class="card post">
                     <div class="card-body">
+                        <h5 class="card-title mb-0">{{ education.institution }} - {{ education.level }}</h5>
                         {% if request.user == person %}
-                            <form action="{% url 'delete' course.id %}" method="POST">
+                            <form action="{% url 'delete' education.id %}" method="POST">
                                 {% csrf_token %}
-                                <input hidden type="text" name="op" value="course" method="POST">
+                                <input hidden type="text" name="op" value="educ">
                                 <button type="submit" class="btn-danger" style="float: right;">Delete</button>
                             </form>
                         {% endif %}
-                        <h5 class="card-title mb-0">{{ course.name }} offered by {{ course.institution }}</h5>
+                        <span style="color: grey;">From {{ education.start_date }} to {{ education.end_date }}</span>   
                     </div>
                 </div>
-        {% empty %}
-            <div style="padding-left: 3%;">
-                Looks like this user hasn't added any courses yet!
+            {% empty %}
+                <div style="padding-left: 3%;">
+                    Looks like this user hasn't added any past education yet!
+                </div>
+            {% endfor %}
+
+            <hr style="border-color: rgb(196, 189, 189); border-width: 2px;">
+
+            <h4><strong>Languages</strong></h4>
+            <div class="row">
+            {% for language in person.languages.all %}
+                    <div class="col-4 card post" style="display: inline-block;">
+                        <div class="card-body">
+                            {% if request.user == person %}
+                                <form action="{% url 'delete' language.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="op" value="lang">
+                                    <button type="submit" class="btn-danger" style="float: right;">Delete</button>
+                                </form>
+                            {% endif %}
+                            <h5 class="card-title mb-0">{{ language.language }} - Level: {{ language.level }}</h5>
+                        </div>
+                    </div>
+            {% empty %}
+                <div style="padding-left: 3%;">
+                    Looks like this user hasn't added any known languages yet!
+                </div>
+            {% endfor %}
             </div>
-        {% endfor %}
+
+            <hr style="border-color: rgb(196, 189, 189); border-width: 2px;">
+
+            <h4><strong>Courses</strong></h4>
+            <div class="row">
+            {% for course in person.courses.all %}
+                    <div class="col-4 card post" style="display: inline-block;">
+                        <div class="card-body">
+                            {% if request.user == person %}
+                                <form action="{% url 'delete' course.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="op" value="course" method="POST">
+                                    <button type="submit" class="btn-danger" style="float: right;">Delete</button>
+                                </form>
+                            {% endif %}
+                            <h5 class="card-title mb-0">{{ course.name }} offered by {{ course.institution }}</h5>
+                        </div>
+                    </div>
+            {% empty %}
+                <div style="padding-left: 3%;">
+                    Looks like this user hasn't added any courses yet!
+                </div>
+            {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

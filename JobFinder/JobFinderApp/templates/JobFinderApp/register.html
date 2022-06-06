@@ -1,33 +1,33 @@
 {% extends "JobFinderApp/layout.html" %}
 
 {% block body %}
+    <div class="container-fluid" style="padding: 10px 30px">
+        <h2>Register</h2>
 
-    <h2>Register</h2>
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
 
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" autofocus type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group form-group">
+                <input class="form-control" style="display: inline-block;" type="text" name="first_name" placeholder="First Name" required>
+                <input class="form-control" style="display: inline-block;" type="text" name="last_name" placeholder="Last Name" required>
+                <input class="form-control" style="display: inline-block;" type="date" name="date" placeholder="Birth date" required>
+            </div>
+            <div class="input-group form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password" required>
+                <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password" required>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Register">
+        </form>
 
-    <form action="{% url 'register' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input class="form-control" autofocus type="text" name="username" placeholder="Username" required>
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="email" name="email" placeholder="Email Address" required>
-        </div>
-        <div class="input-group form-group">
-            <input class="form-control" style="display: inline-block;" type="text" name="first_name" placeholder="First Name" required>
-            <input class="form-control" style="display: inline-block;" type="text" name="last_name" placeholder="Last Name" required>
-            <input class="form-control" style="display: inline-block;" type="date" name="date" placeholder="Birth date" required>
-        </div>
-        <div class="input-group form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password" required>
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password" required>
-        </div>
-        <input class="btn btn-primary" type="submit" value="Register">
-    </form>
-
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
-
+        Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+    </div>
 {% endblock %}
