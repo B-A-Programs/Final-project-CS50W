@@ -79,6 +79,10 @@ def edit(request, username):
                 name = request.POST["name"]
                 c = Courses.objects.create(user=user, institution=institution, name=name)
                 c.save()
+            elif request.POST["op"] == "field":
+                user.field = request.POST.get("fieldofinterest", False)
+                if user.field != False:
+                    user.save()
             return redirect("edit", user.username)
         else:
             return redirect("index")

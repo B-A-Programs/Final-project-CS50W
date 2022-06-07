@@ -10,6 +10,10 @@
                 {% if request.user == person %}
                     | <a href="{% url 'edit' user.username %}">Edit profile</a>
                 {% endif %}
+
+                {% if person.field %}
+                    <h5 style="color: black; float: right;">Field of activity: {{ person.field }}</h5>
+                {% endif %}
             </div>
 
             <hr>
@@ -23,8 +27,10 @@
                         </div>
                     </div>
                 </div>
+
                 <hr style="border-color: black; border-width: 2px;">
             {% endif %}
+
 
             <h4><strong>Job experience</strong></h4>
             {% for job in person.jobs.all %}
