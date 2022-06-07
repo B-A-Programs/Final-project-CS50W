@@ -8,7 +8,7 @@
             <div>{{ message }}</div>
         {% endif %}
 
-        <form action="{% url 'register' %}" method="post">
+        <form action="{% url 'register_company' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <input class="form-control" autofocus type="text" name="username" placeholder="Username" required>
@@ -17,9 +17,8 @@
                 <input class="form-control" type="email" name="email" placeholder="Email Address" required>
             </div>
             <div class="input-group form-group">
-                <input class="form-control" style="display: inline-block;" type="text" name="first_name" placeholder="First Name" required>
-                <input class="form-control" style="display: inline-block;" type="text" name="last_name" placeholder="Last Name" required>
-                <input class="form-control" style="display: inline-block;" type="date" name="date" placeholder="Birth date" required>
+                <input class="form-control" style="display: inline-block;" type="text" name="location" placeholder="Location" required>
+                <input class="form-control" style="display: inline-block;" type="text" name="location_link" placeholder="Link to location" required>
             </div>
             <div class="input-group form-group">
                 <input class="form-control" type="password" name="password" placeholder="Password" required>
@@ -29,6 +28,5 @@
         </form>
 
         Already have an account? <a href="{% url 'login' %}">Log In here.</a>
-        <div style="float: right;">Want to register as a company? <a href="{% url 'register_company' %}">Register here.</a></div>
     </div>
 {% endblock %}

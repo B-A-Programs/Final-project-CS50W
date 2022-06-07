@@ -140,3 +140,31 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "JobFinderApp/register.html")
+
+def register_company(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
+        location = request.POST["location"]
+        location_link = request.POST["location_link"]
+
+        # Ensure password matches confirmation
+        password = request.POST["password"]
+        confirmation = request.POST["confirmation"]
+        if password != confirmation:
+            return render(request, "JobFinderApp/register_company.html", {
+                "message": "Passwords must match."
+            })
+
+        # Attempt to create new company type user
+        try:
+            user = User.objects.create_user(username=username, email=email, password=password, is_company=True, location=location, link_to_location=location_link)
+            user.save()
+        except IntegrityError:
+            return render(request, "JobFinderApp/register_company.html", {
+                "message": "Username already taken."
+            })
+        login(request, user)
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        return render(request, "JobFinderApp/register_company.html")

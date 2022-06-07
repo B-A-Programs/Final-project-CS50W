@@ -6,6 +6,9 @@ class User(AbstractUser):
     description = models.CharField(max_length=500, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     field = models.CharField(max_length=500, blank=True, null=True)
+    is_company = models.BooleanField(default=False)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    link_to_location = models.CharField(max_length=200, blank=True, null=True)
 
 class Job_experiences(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="jobs")
