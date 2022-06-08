@@ -1,0 +1,22 @@
+{% extends "JobFinderApp/layout.html" %}
+
+{% block body %}
+    <div class="container-fluid" style="padding: 10px 30px">
+        <h2>Add a new job post</h2>
+
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'create_post' %}" method="post">
+            {% csrf_token %}
+            <div class="input-group form-group">
+                <input class="form-control" type="text" name="title" placeholder="Job title" required>
+                <input class="form-control" type="text" name="level" placeholder="Job level" required>
+            </div>
+            <textarea class="form-control" style="height: 200px;" name="description" placeholder="Job description" required></textarea>
+            <textarea class="form-control mt-3 mb-3" style="height: 200px;" name="requirements" placeholder="Job requirements" required></textarea>
+            <input class="btn btn-primary" type="submit" value="Create post">
+        </form>
+    </div>
+{% endblock %}

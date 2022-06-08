@@ -34,3 +34,14 @@ class Courses(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="courses")
     name = models.CharField(max_length=50)
     institution = models.CharField(max_length=50)
+
+class Job(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="job_posts")
+    applicants = models.ManyToManyField(User, related_name="applications", blank=True, null=True)
+    title = models.CharField(max_length=50)
+    level = models.CharField(max_length=50)
+    description = models.TextField(max_length=650)
+    requirements = models.TextField(max_length=500)
+
+    def __str__(self):
+        return f"{self.title} at {self.user.username}"

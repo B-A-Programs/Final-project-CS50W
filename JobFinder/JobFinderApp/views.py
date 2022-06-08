@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
-from .models import User, Job_experiences, Languages, Education, Courses
+from .models import User, Job_experiences, Languages, Education, Courses, Job
 
 def index(request):
     return render(request, "JobFinderApp/index.html")
@@ -86,6 +86,20 @@ def edit(request, username):
             return redirect("edit", user.username)
         else:
             return redirect("index")
+
+
+def create_post(request):
+    if request.method == "GET":
+        return render(request, "JobFinderApp/create_post.html")
+    elif request.method == "POST":
+        if request.user.is_company:
+            title = request.POST["title"]
+            level = request.POST["level"]
+            description = request.POST["description"]
+            requirements = request.POST["requirements"]
+            post = Job.objects.create(user=request.user, title=title, level=level, description=description, requirements=requirements)
+            post.save()
+        return redirect("profile", request.user.username)
 
 
 def login_view(request):
