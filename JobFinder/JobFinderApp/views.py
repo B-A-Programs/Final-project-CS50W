@@ -20,7 +20,13 @@ def profile(request, username):
         "person": User.objects.get(username = username)
     })
 
-# Lets the user delete their added qualities
+# Displays a post
+def post(request, id):
+    return render(request, "JobFinderApp/post.html", {
+        "post": Job.objects.get(pk = id)
+    })
+
+# Lets the user delete their added qualities or a company delete their posts
 def delete(request, id):
     if request.method == "POST":
         if request.POST["op"] == "job" and Job_experiences.objects.get(pk = id).user == request.user:
@@ -31,6 +37,8 @@ def delete(request, id):
             Languages.objects.get(pk = id).delete()
         elif request.POST["op"] == "course" and Courses.objects.get(pk = id).user == request.user:
             Courses.objects.get(pk = id).delete()
+        elif request.POST["op"] == "post" and Job.objects.get(pk = id).user == request.user:
+            Job.objects.get(pk = id).delete()
         
         return redirect("profile", request.user.username)
 
@@ -87,7 +95,7 @@ def edit(request, username):
         else:
             return redirect("index")
 
-
+# Lets a company create a post
 def create_post(request):
     if request.method == "GET":
         return render(request, "JobFinderApp/create_post.html")
@@ -97,7 +105,8 @@ def create_post(request):
             level = request.POST["level"]
             description = request.POST["description"]
             requirements = request.POST["requirements"]
-            post = Job.objects.create(user=request.user, title=title, level=level, description=description, requirements=requirements)
+            compensation = request.POST["compensation"]
+            post = Job.objects.create(user=request.user, title=title, level=level, description=description, requirements=requirements, compensation=compensation)
             post.save()
         return redirect("profile", request.user.username)
 

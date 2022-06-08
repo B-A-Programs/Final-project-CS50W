@@ -1,0 +1,34 @@
+{% extends "JobFinderApp/layout.html" %}
+
+{% block body %}
+    <div class="container-fluid" style="padding: 20px 40px">
+        <h1 style="color:rgb(49, 37, 37);">
+            {{ post.title }} at <a href="{% url 'profile' post.user.username %}">{{ post.user.username }}  </a>
+        </h1>
+        {% if request.user == post.user %}
+                <form action="{% url 'delete' post.id %}" method="POST">
+                    {% csrf_token %}
+                    <input hidden type="text" name="op" value="post">
+                    <button type="submit" class="btn-danger" style="float: right;">Delete job listing</button>
+                </form>
+        {% endif %}
+        <h5>Level: {{ post.level }}</h5>
+
+        <hr style="border-color: black; border-width: 2px;">
+
+        <div>
+            <h3><strong>Description</strong></h3>
+            <pre style="font-family: sans-serif; font-size: 18px; white-space: pre-wrap;" class="p-2">{{ post.description }}</pre>
+            
+            <hr style="border-color: rgb(196, 189, 189); border-width: 2px;">
+
+            <h3><strong>Requirements</strong></h3>
+            <pre style="font-family: sans-serif; font-size: 18px; white-space: pre-wrap;" class="p-2">{{ post.requirements }}</pre>
+
+            <hr style="border-color: rgb(196, 189, 189); border-width: 2px;">
+
+            <h3><strong>Compensation</strong></h3>
+            <pre style="font-family: sans-serif; font-size: 18px; white-space: pre-wrap;" class="p-2">{{ post.compensation }}</pre>
+        </div>  
+    </div>
+{% endblock %}

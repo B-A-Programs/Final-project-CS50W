@@ -23,10 +23,8 @@
                 {% if person.description %}
                     <div class="mt-5">
                         <h3><strong>Description</strong></h3>
-                        <div class="d-flex flex-column">
-                            <div class="p-2">
-                                {{ person.description }}
-                            </div>
+                        <div class="p-2">
+                            {{ person.description }}
                         </div>
                     </div>
 
@@ -135,7 +133,7 @@
             <h1 style="color:rgb(49, 37, 37);">{{ person.username }}</h1>
 
             <div style="color: grey">
-                Location: <a href="{{ person.link_to_location }}">{{ person.location }}</a> | Email: {{ person.email }}
+                Location: <a target="_blank" href="{{ person.link_to_location }}">{{ person.location }}</a> | Email: {{ person.email }}
             </div>
 
             <hr>
@@ -154,7 +152,21 @@
             {% endif %}
 
 
-            <h2> Company has no active job listings. </h2>
+            <h3><strong>Job listings</strong></h3>
+
+            {% for job in person.job_posts.all %}
+                <a href="{% url 'post' job.id %}" style="text-decoration: none; color: black;">
+                    <div class="card post">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0">{{ job.title }} | Level: {{ job.level }}</h5> 
+                        </div>
+                    </div>
+                </a>
+            {% empty %}
+                <div style="padding-left: 3%;">
+                    Looks like this company does not have any active job listings!
+                </div>
+            {% endfor %}
         </div>
     </div>
     {% endif %}

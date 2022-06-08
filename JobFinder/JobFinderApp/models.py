@@ -10,6 +10,9 @@ class User(AbstractUser):
     location = models.CharField(max_length=100, blank=True, null=True)
     link_to_location = models.CharField(max_length=200, blank=True, null=True)
 
+    class Meta:
+        ordering = ['-id']
+
 class Job_experiences(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="jobs")
     company_name = models.CharField(max_length=50)
@@ -37,11 +40,15 @@ class Courses(models.Model):
 
 class Job(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="job_posts")
-    applicants = models.ManyToManyField(User, related_name="applications", blank=True, null=True)
+    applicants = models.ManyToManyField(User, related_name="applications", blank=True)
     title = models.CharField(max_length=50)
     level = models.CharField(max_length=50)
-    description = models.TextField(max_length=650)
-    requirements = models.TextField(max_length=500)
+    description = models.TextField(max_length=2000)
+    requirements = models.TextField(max_length=1500)
+    compensation = models.TextField(max_length=1500, default="None")
+
+    class Meta:
+        ordering = ['-id']
 
     def __str__(self):
         return f"{self.title} at {self.user.username}"

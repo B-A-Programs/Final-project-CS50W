@@ -20,7 +20,7 @@
             {% csrf_token %}
             <input type="hidden" name="op" value="desc"> 
             <textarea class="form-control" name="description" placeholder="Description" required>{{ person.description }}</textarea>
-            <button class="btn btn-outline-primary" type="submit">Update description</button>
+            <button class="btn btn-outline-primary mt-3" type="submit">Update description</button>
         </form>
     </div>
     <div id="job" style="display: none;">
