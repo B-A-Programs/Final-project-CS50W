@@ -6,11 +6,24 @@
             {{ post.title }} at <a href="{% url 'profile' post.user.username %}">{{ post.user.username }}  </a>
         </h1>
         {% if request.user == post.user %}
-                <form action="{% url 'delete' post.id %}" method="POST">
+            <form action="{% url 'delete' post.id %}" method="POST">
+                {% csrf_token %}
+                <input hidden type="text" name="op" value="post">
+                <button type="submit" class="brn btn-danger" style="float: right;">Delete job listing</button>
+            </form>
+        {% endif %}
+        {% if not request.user.is_company %}
+            {% if request.user not in post.applicants.all %}
+                <form action="{% url 'apply' post.id %}" method="POST">
                     {% csrf_token %}
-                    <input hidden type="text" name="op" value="post">
-                    <button type="submit" class="btn-danger" style="float: right;">Delete job listing</button>
+                    <button type="submit" class="btn btn-success" style="float: right;">Apply to job listing</button>
                 </form>
+            {% else %}
+                <form action="{% url 'apply' post.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" style="float: right;">Remove application</button>
+                </form>
+            {% endif %}
         {% endif %}
         <h5>Level: {{ post.level }}</h5>
 

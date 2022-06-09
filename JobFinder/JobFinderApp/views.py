@@ -110,6 +110,16 @@ def create_post(request):
             post.save()
         return redirect("profile", request.user.username)
 
+# Lets a user appy to a post
+def apply(request, id):
+    if request.method == "POST":
+        job = Job.objects.get(pk = id)
+        if request.user in job.applicants.all():
+            job.applicants.remove(request.user)
+        else:
+            job.applicants.add(request.user)
+
+        return redirect("post", job.id)
 
 def login_view(request):
     if request.method == "POST":

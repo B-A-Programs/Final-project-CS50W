@@ -41,7 +41,7 @@
                                 <form action="{% url 'delete' job.id %}" method="POST">
                                     {% csrf_token %}
                                     <input hidden type="text" name="op" value="job">
-                                    <button type="submit" class="btn-danger" style="float: right;">Delete</button>
+                                    <button type="submit" class="btn btn-danger" style="float: right;">Delete</button>
                                 </form>
                             {% endif %}
                             <span style="color: grey;">From {{ job.start_date }} to {{ job.end_date }}</span>   
@@ -65,7 +65,7 @@
                                 <form action="{% url 'delete' education.id %}" method="POST">
                                     {% csrf_token %}
                                     <input hidden type="text" name="op" value="educ">
-                                    <button type="submit" class="btn-danger" style="float: right;">Delete</button>
+                                    <button type="submit" class="btn btn-danger" style="float: right;">Delete</button>
                                 </form>
                             {% endif %}
                             <span style="color: grey;">From {{ education.start_date }} to {{ education.end_date }}</span>   
@@ -88,7 +88,7 @@
                                     <form action="{% url 'delete' language.id %}" method="POST">
                                         {% csrf_token %}
                                         <input hidden type="text" name="op" value="lang">
-                                        <button type="submit" class="btn-danger" style="float: right;">Delete</button>
+                                        <button type="submit" class="btn btn-danger" style="float: right;">Delete</button>
                                     </form>
                                 {% endif %}
                                 <h5 class="card-title mb-0">{{ language.language }} - Level: {{ language.level }}</h5>
@@ -112,7 +112,7 @@
                                     <form action="{% url 'delete' course.id %}" method="POST">
                                         {% csrf_token %}
                                         <input hidden type="text" name="op" value="course" method="POST">
-                                        <button type="submit" class="btn-danger" style="float: right;">Delete</button>
+                                        <button type="submit" class="btn btn-danger" style="float: right;">Delete</button>
                                     </form>
                                 {% endif %}
                                 <h5 class="card-title mb-0">{{ course.name }} offered by {{ course.institution }}</h5>
