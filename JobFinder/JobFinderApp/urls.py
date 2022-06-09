@@ -12,5 +12,6 @@ urlpatterns = [
     path("delete/<id>", views.delete, name="delete"),
     path("create_post", views.create_post, name="create_post"),
     path("post/<id>", views.post, name="post"),
-    path("apply/<id>", views.apply, name="apply")
+    path("apply/<id>", views.apply, name="apply"),
+    path("applicants", views.applicants, name="applicants")
 ]

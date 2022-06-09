@@ -121,6 +121,13 @@ def apply(request, id):
 
         return redirect("post", job.id)
 
+# Lets a company view all active applications to their job listings
+def applicants(request):
+    if request.user.is_company:
+        return render(request, "JobFinderApp/applicants.html", {
+            "posts": Job.objects.filter(user = request.user)
+        })
+
 def login_view(request):
     if request.method == "POST":
 
