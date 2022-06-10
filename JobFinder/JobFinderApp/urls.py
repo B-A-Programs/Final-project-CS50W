@@ -13,5 +13,7 @@ urlpatterns = [
     path("create_post", views.create_post, name="create_post"),
     path("post/<id>", views.post, name="post"),
     path("apply/<id>", views.apply, name="apply"),
-    path("applicants", views.applicants, name="applicants")
+    path("applicants", views.applicants, name="applicants"),
+    path("message", views.message, name="message"),
+    path("interviews", views.interviews, name="interviews")
 ]

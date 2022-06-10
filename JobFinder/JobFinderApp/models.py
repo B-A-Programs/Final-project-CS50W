@@ -46,9 +46,21 @@ class Job(models.Model):
     description = models.TextField(max_length=2000)
     requirements = models.TextField(max_length=1500)
     compensation = models.TextField(max_length=1500, default="None")
+    field = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:
         ordering = ['-id']
 
     def __str__(self):
         return f"{self.title} at {self.user.username}"
+
+class Message(models.Model):
+    company = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages")
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    person = models.ForeignKey(User, on_delete=models.CASCADE, related_name="interviews")
+    date = models.DateField(blank = True, null = True)
+    time = models.CharField(max_length=20)
+    location = models.CharField(max_length=60)
+
+    def __str__(self):
+        return f"{self.company.username} interview for {self.person.first_name} {self.person.last_name}"

@@ -1,0 +1,28 @@
+{% extends "JobFinderApp/layout.html" %}
+
+{% block body %}
+    {% if not person.is_company %}
+        <div class="container-fluid" style="padding: 20px 40px;">
+            <h1 style="color:rgb(49, 37, 37);">Your interviews</h1>
+            <hr>
+            
+            {% for interview in interviews %}
+                <div class="card post">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title mb-0"> Company: <a href="{% url 'profile' interview.company.username%}">{{ interview.company.username }}</a> - Job: <a href="{% url 'post' interview.job.id%}">{{ interview.job.title }}</a></h5>
+                        <form action="{% url 'delete' interview.id %}" method="POST">
+                            {% csrf_token %}
+                            <input hidden type="text" name="op" value="interview">
+                            <button type="submit" class="btn btn-danger" style="float: right;">X</button>
+                        </form> 
+                        <span>Date: <strong>{{ interview.date }}</strong> | Time: <strong>{{ interview.time }}</strong> | Location: <strong>{{ interview.location }}</strong></span> 
+                        <p class="mt-1" style="color: grey;">Please confirm your attendance at: <strong>{{ interview.company.email }}</strong>. For rescheduling and clarifications contact the same address.</p> 
+                    </div>
+                </div>
+            {% empty %}
+                <div style="padding-left: 1%;">
+                    Looks like you don't have any interviews yet!
+                </div>
+            {% endfor %}
+    {% endif %}
+{% endblock %}

@@ -1,4 +1,5 @@
 import json
+from sqlite3 import Date
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -9,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
-from .models import User, Job_experiences, Languages, Education, Courses, Job
+from .models import User, Job_experiences, Languages, Education, Courses, Job, Message
 
 def index(request):
     return render(request, "JobFinderApp/index.html")
@@ -39,6 +40,9 @@ def delete(request, id):
             Courses.objects.get(pk = id).delete()
         elif request.POST["op"] == "post" and Job.objects.get(pk = id).user == request.user:
             Job.objects.get(pk = id).delete()
+        elif request.POST["op"] == "interview" and Message.objects.get(pk = id).person == request.user:
+            Message.objects.get(pk = id).delete()
+            return redirect("interviews")
         
         return redirect("profile", request.user.username)
 
@@ -106,8 +110,10 @@ def create_post(request):
             description = request.POST["description"]
             requirements = request.POST["requirements"]
             compensation = request.POST["compensation"]
-            post = Job.objects.create(user=request.user, title=title, level=level, description=description, requirements=requirements, compensation=compensation)
-            post.save()
+            field = request.POST.get("fieldofinterest", False)
+            if field != False:
+                post = Job.objects.create(user=request.user, title=title, level=level, description=description, requirements=requirements, compensation=compensation, field=field)
+                post.save()
         return redirect("profile", request.user.username)
 
 # Lets a user appy to a post
@@ -127,6 +133,30 @@ def applicants(request):
         return render(request, "JobFinderApp/applicants.html", {
             "posts": Job.objects.filter(user = request.user)
         })
+
+# Lets a company schedule a meeting
+def message(request):
+    if request.method == "POST":
+        job = Job.objects.get(pk = request.POST["job"])
+        company = job.user
+        applicant = User.objects.get(pk = request.POST["applicant"])
+        date = request.POST["date"]
+        time = request.POST["time"]
+        location = request.POST["location"]
+
+        if request.user == company:
+            mes = Message.objects.create(person=applicant, job=job, company=company, date=date, time=time, location=location)
+            mes.save()
+
+        return redirect("applicants")
+
+# Page for displaying a user's pending interviews
+def interviews(request):
+    if not request.user.is_company:
+        return render(request, "JobFinderApp/interviews.html", {
+            'interviews': Message.objects.filter(person=request.user)
+        })
+
 
 def login_view(request):
     if request.method == "POST":

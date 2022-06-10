@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Job_experiences, Education, Languages, Courses, Job
+from .models import User, Job_experiences, Education, Languages, Courses, Job, Message
 
 class JobAdmin(admin.ModelAdmin):
     filter_horizontal = ("applicants",)
@@ -11,3 +11,4 @@ admin.site.register(Education)
 admin.site.register(Languages)
 admin.site.register(Courses)
 admin.site.register(Job, JobAdmin)
+admin.site.register(Message)
