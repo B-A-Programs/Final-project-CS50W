@@ -64,6 +64,7 @@ def edit(request, username):
                 desc = request.POST["description"]
                 user.description = desc
                 user.save()
+                return redirect("profile", username)
             elif request.POST["op"] == "job":
                 company = request.POST["company"]
                 position = request.POST["position"]
