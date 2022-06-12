@@ -155,7 +155,8 @@ def message(request):
 def interviews(request):
     if not request.user.is_company:
         return render(request, "JobFinderApp/interviews.html", {
-            'interviews': Message.objects.filter(person=request.user)
+            'interviews': Message.objects.filter(person=request.user),
+            'job_applications': Job.objects.filter(applicants=request.user)
         })
 
 

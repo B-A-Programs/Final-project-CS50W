@@ -24,5 +24,25 @@
                     Looks like you don't have any interviews yet!
                 </div>
             {% endfor %}
+
+            <hr style="border-color: black; border-width: 2px;">
+            <h1 style="color:rgb(49, 37, 37);">Your applications</h1>
+            <hr>
+            {% for job in job_applications %}
+                <div class="card post">
+                    <div class="card-body">
+                        {% for interview in interviews %}
+                            {% if interview.job == job %}
+                                <span style="color: green; float: right;"><strong>You have been invited to an interview!</strong></span>
+                            {% endif %}
+                        {% endfor %}
+                        <h5 class="card-title mb-0"> Company: <a href="{% url 'profile' job.user.username%}">{{ job.user.username }}</a> - Job: <a href="{% url 'post' job.id%}"> {{ job.title }}</a></h5>
+                    </div>
+                </div>
+            {% empty %}
+                <div style="padding-left: 1%;">
+                    Looks like you haven't applied anywhere yet!
+                </div>
+            {% endfor %}
     {% endif %}
 {% endblock %}
