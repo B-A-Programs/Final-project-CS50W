@@ -144,6 +144,7 @@
         <div style="padding: 10px;">
             <h1 style="color:rgb(49, 37, 37);">{{ person.username }}</h1>
 
+            <h5 style="color: black; float: right;">Field of activity: {{ person.field }}</h5>
             <div style="color: grey">
                 Location: <a target="_blank" href="{{ person.link_to_location }}">{{ person.location }}</a> | Email: {{ person.email }} {% if person == request.user %} | <a href="" id="descLink">Edit description</a> {% endif %}
             </div>

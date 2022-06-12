@@ -1,0 +1,29 @@
+{% extends "JobFinderApp/layout.html" %}
+
+{% block body %}
+    <div class="container-fluid" style="padding: 20px 40px">
+        <h1 style="color:rgb(49, 37, 37);">
+            {{ title }}
+        </h1>
+        <hr>
+
+        {% for post in posts %}
+            <a href="{% url 'post' post.id %}" style="text-decoration: none; color: black;">
+            <div class="card post">
+                <div class="card-body pb-1">
+                    <h5 class="card-title mb-0"><strong>{{ post.title }} at {{ post.user.username }}</strong></h5> 
+                    <p class="mt-1">Field: <strong>{{ post.field }}</strong> | Level: <strong>{{ post.level }}</strong></p> 
+                </div>
+            </div>
+            </a>
+        {% empty %}
+            <div style="padding-left: 1%;">
+                {% if title != "All posts" %}
+                    Looks like there are no active posts in this particular field!
+                {% else %}
+                    Looks like there are no active posts!
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

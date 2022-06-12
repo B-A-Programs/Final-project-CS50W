@@ -1,5 +1,23 @@
 {% extends "JobFinderApp/layout.html" %}
 
+{% block script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var select = document.getElementById("selectField");
+            var options = ["Architecture and engineering", "Arts, culture and entertainment", "Business, management and administration", "Communications", "Community and social services",
+                "Education", "Science and technology", "Installation, repair and maintenance", "Farming, fishing and forestry", "Health and medicine", "Law and public policy", "Sales"];
+
+            for(var i = 0; i < options.length; i++) {
+                var x = options[i];
+                var op = document.createElement("option");
+                op.textContent = x;
+                op.value = x;
+                select.appendChild(op);
+            }
+        })
+    </script>
+{% endblock %}
+
 {% block body %}
     <div class="container-fluid" style="padding: 10px 30px">
         <h2>Register company</h2>
@@ -24,7 +42,10 @@
                 <input class="form-control" type="password" name="password" placeholder="Password" required>
                 <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password" required>
             </div>
-            <input class="btn btn-primary" type="submit" value="Register">
+            <select class="form-control" id="selectField" name="field">
+                <option disabled selected>Select the company's main field of operations.</option>
+            </select>
+            <input class="btn btn-primary mt-3" type="submit" value="Register">
         </form>
 
         Already have an account? <a href="{% url 'login' %}">Log In here.</a>

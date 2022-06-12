@@ -1,0 +1,73 @@
+{% extends "JobFinderApp/layout.html" %}
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("2").style.display = "none";
+    })
+</script>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid" style="padding: 20px 40px">
+        <h1 style="color:rgb(49, 37, 37);">
+            {% if title != "all" %}
+                People in the field of: {{ title }}
+            {% else %}
+                All People
+            {% endif %}
+        </h1>
+        <hr>
+
+        {% for person in people %}
+            <a href="{% url 'profile' person.username %}" style="text-decoration: none; color: black;">
+            <div id="{{ person.id }}" class="card post">
+                <div class="card-body pb-1">
+                    <h5 class="card-title mb-0"><strong>{{ person.first_name }} {{ person.last_name }}</strong></h5> 
+                    <span style="color: grey;">Field: <strong>{{ person.field }}</strong></span>
+                    <p class="mt-1">{{ person.description }}</p> 
+                </div>
+            </div>
+            </a>
+        {% empty %}
+            <div style="padding-left: 1%;">
+                {% if title != "all" %}
+                    Looks like there are no people in this particular field!
+                {% else %}
+                    Looks like there are no people registered!
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <hr style="border-color: black; border-width: 2px;">
+
+        <h1 style="color:rgb(49, 37, 37);">
+            {% if title != "all" %}
+                Companies in the field of: {{ title }}
+            {% else %}
+                All Companies
+            {% endif %}
+        </h1>
+        <hr>
+
+        {% for company in companies %}
+            <a href="{% url 'profile' company.username %}" style="text-decoration: none; color: black;">
+            <div class="card post">
+                <div class="card-body pb-1">
+                    <h5 class="card-title mb-0"><strong>{{ company.username }}</strong></h5> 
+                    <span style="color: grey;">Field: <strong>{{ company.field }}</strong> | Location: <strong>{{ company.location }}</strong></span>
+                    <p class="mt-1">{{ company.description }}</p> 
+                </div>
+            </div>
+            </a>
+        {% empty %}
+            <div style="padding-left: 1%;">
+                {% if title != "all" %}
+                    Looks like there are no companies in this particular field!
+                {% else %}
+                    Looks like there are no companies registered!
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

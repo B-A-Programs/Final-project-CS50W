@@ -159,6 +159,34 @@ def interviews(request):
             'job_applications': Job.objects.filter(applicants=request.user)
         })
 
+# Page for displaying posts
+def posts(request, field):
+    if field != "all":
+        return render(request, "JobFinderApp/posts.html", {
+            'title': f"Job posts in the field of: {field}",
+            'posts': Job.objects.filter(field = field)
+        })
+    else:
+        return render(request, "JobFinderApp/posts.html", {
+            'title': "All posts",
+            'posts': Job.objects.all()
+        })
+
+# Page for displaying users
+def users(request, field):
+    if field != "all":
+        return render(request, "JobFinderApp/users.html", {
+            'title': field,
+            'people': User.objects.filter(field = field, is_company = False),
+            'companies': User.objects.filter(field = field, is_company = True)
+        })
+    else:
+        return render(request, "JobFinderApp/users.html", {
+            'title': field,
+            'people': User.objects.filter(is_company = False),
+            'companies': User.objects.filter(is_company = True)
+        })
+
 
 def login_view(request):
     if request.method == "POST":
@@ -219,6 +247,7 @@ def register_company(request):
         email = request.POST["email"]
         location = request.POST["location"]
         location_link = request.POST["location_link"]
+        field = request.POST["field"]
 
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -230,7 +259,7 @@ def register_company(request):
 
         # Attempt to create new company type user
         try:
-            user = User.objects.create_user(username=username, email=email, password=password, is_company=True, location=location, link_to_location=location_link)
+            user = User.objects.create_user(username=username, email=email, password=password, is_company=True, location=location, link_to_location=location_link, field=field)
             user.save()
         except IntegrityError:
             return render(request, "JobFinderApp/register_company.html", {
