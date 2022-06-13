@@ -7,6 +7,20 @@
     margin-left: 215px;
 }
 
+html, body {
+    margin:0px;
+    height:100%;
+}
+
+.bckg {
+    background-image: url('\images/workplace_background.jpg');
+    height: 95%;
+    width: 100%;
+
+    background-position: center;
+    background-size: cover;
+}
+    
 
 /* From W3Schools https://www.w3schools.com/howto/howto_css_sidebar_responsive.asp */
 .sidebar {
