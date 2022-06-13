@@ -41,6 +41,7 @@ def delete(request, id):
         elif request.POST["op"] == "post" and Job.objects.get(pk = id).user == request.user:
             Job.objects.get(pk = id).delete()
         elif request.POST["op"] == "interview" and Message.objects.get(pk = id).person == request.user:
+            Message.objects.get(pk = id).job.accepted.remove(Message.objects.get(pk = id).person)
             Message.objects.get(pk = id).delete()
             return redirect("interviews")
         
@@ -128,11 +129,26 @@ def apply(request, id):
 
         return redirect("post", job.id)
 
+# Lets a company delete a users application
+def reject(request, id):
+    if request.method == "POST":
+        job = Job.objects.get(pk = request.POST["jobid"])
+        user = User.objects.get(pk = id)
+
+        if request.user == job.user:
+            job.applicants.remove(user)
+            return redirect("applicants")
+
 # Lets a company view all active applications to their job listings
 def applicants(request):
     if request.user.is_company:
+        applicants_accepted = []
+        app = Message.objects.filter(company = request.user)
+        for a in app:
+            applicants_accepted.append(a.person)
         return render(request, "JobFinderApp/applicants.html", {
-            "posts": Job.objects.filter(user = request.user)
+            "posts": Job.objects.filter(user = request.user),
+            "applicants_accepted": applicants_accepted
         })
 
 # Lets a company schedule a meeting
@@ -148,6 +164,7 @@ def message(request):
         if request.user == company:
             mes = Message.objects.create(person=applicant, job=job, company=company, date=date, time=time, location=location)
             mes.save()
+            job.accepted.add(applicant)
 
         return redirect("applicants")
 

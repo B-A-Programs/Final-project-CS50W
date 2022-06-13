@@ -17,5 +17,6 @@ urlpatterns = [
     path("message", views.message, name="message"),
     path("interviews", views.interviews, name="interviews"),
     path("posts/<field>", views.posts, name="posts"),
-    path("users/<field>", views.users, name="users")
+    path("users/<field>", views.users, name="users"),
+    path("reject/<id>", views.reject, name="reject")
 ]

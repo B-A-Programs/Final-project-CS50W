@@ -41,6 +41,7 @@ class Courses(models.Model):
 class Job(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="job_posts")
     applicants = models.ManyToManyField(User, related_name="applications", blank=True)
+    accepted = models.ManyToManyField(User, related_name="accepted", blank=True)
     title = models.CharField(max_length=50)
     level = models.CharField(max_length=50)
     description = models.TextField(max_length=2000)

@@ -12,7 +12,16 @@
                 <a href="{% url 'profile' applicant.username %}" style="text-decoration: none; color: black;">
                     <div class="card post">
                         <div class="card-body">
-                            <button id="btn_{{ post.id }}_{{ applicant.id }}" data-id="{{ post.id }}_{{ applicant.id }}" class="btn btn-success" style="float: right">Invite applicant to interview</button>
+                            {% if applicant not in post.accepted.all %}
+                                <form style="display: inline;" action="{% url 'reject' applicant.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="jobid" value="{{ post.id }}">
+                                    <button class="btn btn-danger" style="float: right;" type="submit">Delete application</button>
+                                </form>
+                                <button id="btn_{{ post.id }}_{{ applicant.id }}" data-id="{{ post.id }}_{{ applicant.id }}" class="btn btn-success" style="float: right; margin-right: 3px">Invite applicant to interview</button>
+                            {% else %}
+                                <span style="float: right; color:green; margin-right: 3px;"><strong>User has already been invited to an interview!</strong></span> 
+                            {% endif %}
                             <h5 class="card-title mb-0">{{ applicant.first_name }} {{ applicant.last_name}} applied for the post of {{ post.title }}</h5>  
                         </div>
                     </div>

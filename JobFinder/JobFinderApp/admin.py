@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import User, Job_experiences, Education, Languages, Courses, Job, Message
 
 class JobAdmin(admin.ModelAdmin):
-    filter_horizontal = ("applicants",)
+    filter_horizontal = ("applicants", "accepted",)
 
 # Register your models here.
 admin.site.register(User)
