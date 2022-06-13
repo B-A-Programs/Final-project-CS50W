@@ -184,7 +184,8 @@
                 <a href="{% url 'post' job.id %}" style="text-decoration: none; color: black;">
                     <div class="card post">
                         <div class="card-body">
-                            <h5 class="card-title mb-0">{{ job.title }} | Level: {{ job.level }}</h5> 
+                            <h5 class="card-title mb-0"><strong>{{ job.title }}</strong></h5> 
+                            <p class="mt-1 mb-0">Field: <strong>{{ job.field }}</strong> | Level: <strong>{{ job.level }}</strong></p> 
                         </div>
                     </div>
                 </a>
