@@ -13,7 +13,7 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
             <a class="navbar-brand" href="{% url 'index' %}">JobFinder</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -48,6 +48,12 @@
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                     </li>
                 {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'posts' 'all' %}">All posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users' 'all' %}">All users</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Log In</a>
                     </li>
