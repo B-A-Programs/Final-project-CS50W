@@ -1,4 +1,4 @@
-import json
+import json, datetime
 from sqlite3 import Date
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
@@ -144,8 +144,13 @@ def applicants(request):
     if request.user.is_company:
         applicants_accepted = []
         app = Message.objects.filter(company = request.user)
+        # Delete any interview overdue, else append user to accepted applicants
         for a in app:
-            applicants_accepted.append(a.person)
+            if a.date < datetime.date.today():
+                a.job.accepted.remove(a.person)
+                a.delete()
+            else:
+                applicants_accepted.append(a.person)
         return render(request, "JobFinderApp/applicants.html", {
             "posts": Job.objects.filter(user = request.user),
             "applicants_accepted": applicants_accepted
@@ -171,6 +176,12 @@ def message(request):
 # Page for displaying a user's pending interviews
 def interviews(request):
     if not request.user.is_company:
+        interviews = Message.objects.filter(person=request.user)
+        # Delete any interviews overdue
+        for interview in interviews:
+            if interview.date < datetime.date.today():
+                interview.job.accepted.remove(interview.person)
+                interview.delete()
         return render(request, "JobFinderApp/interviews.html", {
             'interviews': Message.objects.filter(person=request.user),
             'job_applications': Job.objects.filter(applicants=request.user)
