@@ -47,7 +47,7 @@ def delete(request, id):
         
         return redirect("profile", request.user.username)
 
-# Lets a user add qualities
+# Lets a user add qualities and checks that the data is correct
 def edit(request, username):
     if request.method == "GET":
         # Return edit page is user is the same as the request user
@@ -56,7 +56,9 @@ def edit(request, username):
                 "person": User.objects.get(username = username)
             })
         else:
-            return redirect('index')
+            return render(request, 'JobFinderApp/index.html', {
+                "message": "You can't acces another user's edit page."
+            })
     elif request.method == "POST":
         # Check if request user is the same as the user to be updated
         if request.user.username == username:
@@ -72,9 +74,22 @@ def edit(request, username):
                 description = request.POST["description"]
                 start = request.POST["start_date"]
                 end = request.POST["end_date"]
-                if(start <= end):
+
+                # Check if dates entered are correct
+                if start <= str(user.birth_date):
+                    return render(request, 'JobFinderApp/edit.html', {
+                        "person": User.objects.get(username = username),
+                        "message": "Start date must be bigger than your birth date!"
+                    })
+                
+                if start <= end:
                     job = Job_experiences.objects.create(user=user, company_name=company, position=position, description=description, start_date=start, end_date=end)
                     job.save()
+                else:
+                    return render(request, 'JobFinderApp/edit.html', {
+                        "person": User.objects.get(username = username),
+                        "message": "Start date must be less than the end date!"
+                    })
             elif request.POST["op"] == "lang":
                 language = request.POST["language"]
                 level = request.POST["level"]
@@ -85,9 +100,22 @@ def edit(request, username):
                 level = request.POST["level"]
                 start = request.POST["start_date"]
                 end = request.POST["end_date"]
+
+                # Check if dates entered are correct
+                if start <= str(user.birth_date):
+                    return render(request, 'JobFinderApp/edit.html', {
+                        "person": User.objects.get(username = username),
+                        "message": "Start date must be bigger than your birth date!"
+                    })
+
                 if(start <= end):
                     educ = Education.objects.create(user=user, institution=institution, level=level, start_date=start, end_date=end)
                     educ.save()
+                else:
+                    return render(request, 'JobFinderApp/edit.html', {
+                        "person": User.objects.get(username = username),
+                        "message": "Start date must be less than the end date!"
+                    })
             elif request.POST["op"] == "course":
                 institution = request.POST["institution"]
                 name = request.POST["name"]
@@ -97,6 +125,12 @@ def edit(request, username):
                 user.field = request.POST.get("fieldofinterest", False)
                 if user.field != False:
                     user.save()
+                else:
+                    # Check if there is a correct field selected
+                    return render(request, 'JobFinderApp/edit.html', {
+                        "person": User.objects.get(username = username),
+                        "message": "You must select a field when changing it!"
+                    })
             return redirect("edit", user.username)
         else:
             return redirect("index")
@@ -113,12 +147,18 @@ def create_post(request):
             requirements = request.POST["requirements"]
             compensation = request.POST["compensation"]
             field = request.POST.get("fieldofinterest", False)
+
+            # Check if there is a correct field selected
             if field != False:
                 post = Job.objects.create(user=request.user, title=title, level=level, description=description, requirements=requirements, compensation=compensation, field=field)
                 post.save()
+            else:
+                return render(request, "JobFinderApp/create_post.html", {
+                    "message": "You must select a field for your job post!"
+                })
         return redirect("profile", request.user.username)
 
-# Lets a user appy to a post
+# Lets a user apply and unapply to a post
 def apply(request, id):
     if request.method == "POST":
         job = Job.objects.get(pk = id)
@@ -137,23 +177,21 @@ def reject(request, id):
 
         if request.user == job.user:
             job.applicants.remove(user)
+            job.accepted.remove(user)
             return redirect("applicants")
 
 # Lets a company view all active applications to their job listings
 def applicants(request):
     if request.user.is_company:
-        applicants_accepted = []
         app = Message.objects.filter(company = request.user)
+
         # Delete any interview overdue, else append user to accepted applicants
         for a in app:
             if a.date < datetime.date.today():
                 a.job.accepted.remove(a.person)
                 a.delete()
-            else:
-                applicants_accepted.append(a.person)
         return render(request, "JobFinderApp/applicants.html", {
-            "posts": Job.objects.filter(user = request.user),
-            "applicants_accepted": applicants_accepted
+            "posts": Job.objects.filter(user = request.user)
         })
 
 # Lets a company schedule a meeting
@@ -161,17 +199,25 @@ def message(request):
     if request.method == "POST":
         job = Job.objects.get(pk = request.POST["job"])
         company = job.user
-        applicant = User.objects.get(pk = request.POST["applicant"])
-        date = request.POST["date"]
-        time = request.POST["time"]
-        location = request.POST["location"]
-
         if request.user == company:
-            mes = Message.objects.create(person=applicant, job=job, company=company, date=date, time=time, location=location)
-            mes.save()
-            job.accepted.add(applicant)
+            applicant = User.objects.get(pk = request.POST["applicant"])
+            date = request.POST["date"]
+            time = request.POST["time"]
+            location = request.POST["location"]
 
-        return redirect("applicants")
+            # Check if time is in correct format
+            if len(time) > 5 or time[2] != ":" or time[1] not in "0123456789" or time[0] not in "012" or time[3] not in "012345" or time[4] not in "0123456789":
+                return render(request, "JobFinderApp/applicants.html", {
+                    "posts": Job.objects.filter(user = request.user),
+                    "message": "Time must be in format hh:mm!"
+                })
+
+            if request.user == company:
+                mes = Message.objects.create(person=applicant, job=job, company=company, date=date, time=time, location=location)
+                mes.save()
+                job.accepted.add(applicant)
+
+            return redirect("applicants")
 
 # Page for displaying a user's pending interviews
 def interviews(request):
@@ -275,7 +321,13 @@ def register_company(request):
         email = request.POST["email"]
         location = request.POST["location"]
         location_link = request.POST["location_link"]
-        field = request.POST["field"]
+        field = request.POST.get("field", False)
+
+        # Check if field is correct
+        if field == False:
+            return render(request, "JobFinderApp/register_company.html", {
+                "message": "Main field of operations must not be empty!"
+            })
 
         # Ensure password matches confirmation
         password = request.POST["password"]

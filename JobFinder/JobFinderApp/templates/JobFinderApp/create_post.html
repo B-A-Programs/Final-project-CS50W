@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <h2>Add a new job post</h2>
 
         {% if message %}
-            <div>{{ message }}</div>
+            <div class="alert alert-danger" role="alert">{{ message }}</div>
         {% endif %}
 
         <form action="{% url 'create_post' %}" method="post">

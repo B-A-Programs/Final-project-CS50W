@@ -23,7 +23,7 @@
         <h2>Register company</h2>
 
         {% if message %}
-            <div>{{ message }}</div>
+            <div class="alert alert-danger" style="margin-top: 30px;" role="alert">{{ message }}</div>
         {% endif %}
 
         <form action="{% url 'register_company' %}" method="post">

@@ -6,6 +6,9 @@
 {% block body %}
 <div class="bckg">
     <div style="padding: 3%; text-align: center;">
+        {% if message %}
+            <div class="alert alert-danger" style="margin-top: 30px;" role="alert">{{ message }}</div>
+        {% endif %}
         <h1 class="title">Welcome to JobFinder!</h1>
         <div class="dropdown">
             <button class="dropbtn">Search for people in the field of: </button>

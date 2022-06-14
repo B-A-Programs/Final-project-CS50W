@@ -55,7 +55,7 @@
                             <form action="{% url 'delete' job.id %}" method="POST">
                                 {% csrf_token %}
                                 <input hidden type="text" name="op" value="job">
-                                <button type="submit" class="btn-danger" style="float: right;">Delete</button>
+                                <button type="submit" class="btn btn-danger" style="float: right;">Delete</button>
                             </form>
                         {% endif %}
                         <span style="color: grey;">From {{ job.start_date }} to {{ job.end_date }}</span>   
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             {% empty %}
-                <div style="padding-left: 3%;">
+                <div style="padding-left: 1%;">
                     Looks like this user hasn't added any past jobs yet!
                 </div>
             {% endfor %}
@@ -74,19 +74,19 @@
             {% for education in person.education.all %}
                 <div class="card post">
                     <div class="card-body">
-                        <h5 class="card-title mb-0">{{ education.institution }} - {{ education.level }}</h5>
                         {% if request.user == person %}
-                            <form action="{% url 'delete' education.id %}" method="POST">
+                            <form class="mt-1" action="{% url 'delete' education.id %}" method="POST">
                                 {% csrf_token %}
                                 <input hidden type="text" name="op" value="educ">
-                                <button type="submit" class="btn-danger" style="float: right;">Delete</button>
+                                <button type="submit" class="btn btn-danger" style="float: right;">Delete</button>
                             </form>
                         {% endif %}
+                        <h5 class="card-title mb-0">{{ education.institution }} - {{ education.level }}</h5>
                         <span style="color: grey;">From {{ education.start_date }} to {{ education.end_date }}</span>   
                     </div>
                 </div>
             {% empty %}
-                <div style="padding-left: 3%;">
+                <div style="padding-left: 1%;">
                     Looks like this user hasn't added any past education yet!
                 </div>
             {% endfor %}
@@ -99,17 +99,17 @@
                     <div class="col-4 card post" style="display: inline-block;">
                         <div class="card-body">
                             {% if request.user == person %}
-                                <form action="{% url 'delete' language.id %}" method="POST">
+                                <form class="mb-2" action="{% url 'delete' language.id %}" method="POST">
                                 {% csrf_token %}
                                     <input hidden type="text" name="op" value="lang">
-                                        <button type="submit" class="btn-danger" style="float: right;">Delete</button>
+                                        <button type="submit" class="btn btn-danger" style="float: right;">Delete</button>
                                     </form>
                             {% endif %}
-                            <h5 class="card-title mb-0">{{ language.language }} - Level: {{ language.level }}</h5>
+                            <h5 class="card-title mb-2">{{ language.language }} - Level: {{ language.level }}</h5>
                         </div>
                     </div>
                 {% empty %}
-                    <div style="padding-left: 3%;">
+                    <div style="padding-left: 1%;">
                         Looks like this user hasn't added any known languages yet!
                     </div>
                 {% endfor %}
@@ -126,14 +126,14 @@
                             <form action="{% url 'delete' course.id %}" method="POST">
                                 {% csrf_token %}
                                 <input hidden type="text" name="op" value="course" method="POST">
-                                <button type="submit" class="btn-danger" style="float: right;">Delete</button>
+                                <button type="submit" class="btn btn-danger" style="float: right;">Delete</button>
                             </form>
                         {% endif %}
                         <h5 class="card-title mb-0">{{ course.name }} offered by {{ course.institution }}</h5>
                     </div>
                 </div>
             {% empty %}
-                <div style="padding-left: 3%;">
+                <div style="padding-left: 1%;">
                     Looks like this user hasn't added any courses yet!
                 </div>
             {% endfor %}
@@ -149,16 +149,18 @@
                 Location: <a target="_blank" href="{{ person.link_to_location }}">{{ person.location }}</a> | Email: {{ person.email }} {% if person == request.user %} | <a href="" id="descLink">Edit description</a> {% endif %}
             </div>
 
-            <div id="desc" style="display: none;">
-                <hr>
-                <h5>Update description</h5>
-                <form action="{% url 'edit' person.username %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="op" value="desc"> 
-                    <textarea class="form-control" style="height: 80px;" name="description" placeholder="Description" required>{{ person.description }}</textarea>
-                    <button class="btn btn-outline-primary mt-3" type="submit">Update description</button>
-                </form>
-            </div>
+            {% if person == request.user %}
+                <div id="desc" style="display: none;">
+                    <hr>
+                    <h5>Update description</h5>
+                    <form action="{% url 'edit' person.username %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="op" value="desc"> 
+                        <textarea class="form-control" style="height: 80px;" name="description" placeholder="Description" required>{{ person.description }}</textarea>
+                        <button class="btn btn-outline-primary mt-3" type="submit">Update description</button>
+                    </form>
+                </div>
+            {% endif %}
             
             <hr>
 
