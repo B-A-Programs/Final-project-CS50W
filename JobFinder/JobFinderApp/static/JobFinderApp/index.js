@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var x = options[i];
         var op = document.createElement('a');
         op.textContent = x;
-        op.href = `posts/${x}`
+        op.href = `posts/${x}/any`
         select2.appendChild(op);
     }
 })

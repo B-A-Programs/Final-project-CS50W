@@ -16,7 +16,7 @@ urlpatterns = [
     path("applicants", views.applicants, name="applicants"),
     path("message", views.message, name="message"),
     path("interviews", views.interviews, name="interviews"),
-    path("posts/<field>", views.posts, name="posts"),
+    path("posts/<field>/<level>", views.posts, name="posts"),
     path("users/<field>", views.users, name="users"),
     path("reject/<id>", views.reject, name="reject")
 ]

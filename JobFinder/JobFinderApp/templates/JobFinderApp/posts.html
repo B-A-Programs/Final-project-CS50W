@@ -2,6 +2,15 @@
 
 {% block body %}
     <div class="container-fluid" style="padding: 20px 40px">
+        <div class="dropdown" style="float: right;">
+            <button class="dropbtn" style="min-width: 200px; background-color: rgb(223, 211, 211); color: rgb(87, 80, 80)">Select job level:</button>
+            <div id="dp_people" class="dropdown-content" style="min-width: 200px; background-color: rgb(233, 222, 222)">
+                <a href="{% url 'posts' field 'Entry level' %}">Entry level</a>
+                <a href="{% url 'posts' field 'Beginner' %}">Beginner</a>
+                <a href="{% url 'posts' field 'Intermediate' %}">Intermediate</a>
+                <a href="{% url 'posts' field 'Advanced' %}">Advanced</a>
+            </div>
+        </div>
         <h1 style="color:rgb(49, 37, 37);">
             {{ title }}
         </h1>

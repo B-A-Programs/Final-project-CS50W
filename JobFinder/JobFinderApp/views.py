@@ -242,11 +242,18 @@ def interviews(request):
         })
 
 # Page for displaying posts
-def posts(request, field):
-    if field != "all":
+def posts(request, field, level):
+    if field != "all" and level != "any":
+        return render(request, "JobFinderApp/posts.html", {
+            'title': f"Job posts in the field of: {field} | Level: {level}",
+            'posts': Job.objects.filter(field = field, level = level),
+            'field': field
+        })
+    elif field != "all":
         return render(request, "JobFinderApp/posts.html", {
             'title': f"Job posts in the field of: {field}",
-            'posts': Job.objects.filter(field = field)
+            'posts': Job.objects.filter(field = field),
+            'field': field
         })
     else:
         return render(request, "JobFinderApp/posts.html", {
