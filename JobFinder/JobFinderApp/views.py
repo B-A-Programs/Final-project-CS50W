@@ -143,6 +143,14 @@ def create_post(request):
         if request.user.is_company:
             title = request.POST["title"]
             level = request.POST["level"]
+            if level == "Entry level":
+                color = "green"
+            elif level == "Beginner":
+                color = "orange"
+            elif level == "Intermediate":
+                color = "magenta"
+            else:
+                color = "red"
             description = request.POST["description"]
             requirements = request.POST["requirements"]
             compensation = request.POST["compensation"]
@@ -150,7 +158,7 @@ def create_post(request):
 
             # Check if there is a correct field selected
             if field != False:
-                post = Job.objects.create(user=request.user, title=title, level=level, description=description, requirements=requirements, compensation=compensation, field=field)
+                post = Job.objects.create(user=request.user, title=title, level=level, description=description, requirements=requirements, compensation=compensation, field=field, color=color)
                 post.save()
             else:
                 return render(request, "JobFinderApp/create_post.html", {

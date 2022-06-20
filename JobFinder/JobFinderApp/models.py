@@ -44,6 +44,7 @@ class Job(models.Model):
     accepted = models.ManyToManyField(User, related_name="accepted", blank=True)
     title = models.CharField(max_length=50)
     level = models.CharField(max_length=50)
+    color = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(max_length=2000)
     requirements = models.TextField(max_length=1500)
     compensation = models.TextField(max_length=1500, default="None")
