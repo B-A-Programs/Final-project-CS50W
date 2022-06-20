@@ -142,7 +142,13 @@ def create_post(request):
     elif request.method == "POST":
         if request.user.is_company:
             title = request.POST["title"]
-            level = request.POST["level"]
+            level = request.POST.get("level", False)
+            if level == False:
+                return render(request, "JobFinderApp/create_post.html", {
+                    "message": "You must select a level for your job post!"
+                })
+
+            # Add color attribute based on level
             if level == "Entry level":
                 color = "green"
             elif level == "Beginner":
@@ -151,6 +157,7 @@ def create_post(request):
                 color = "magenta"
             else:
                 color = "red"
+
             description = request.POST["description"]
             requirements = request.POST["requirements"]
             compensation = request.POST["compensation"]
@@ -214,7 +221,7 @@ def message(request):
             location = request.POST["location"]
 
             # Check if time is in correct format
-            if len(time) > 5 or time[2] != ":" or time[1] not in "0123456789" or time[0] not in "012" or time[3] not in "012345" or time[4] not in "0123456789":
+            if len(time) != 5 or time[2] != ":" or time[1] not in "0123456789" or time[0] not in "012" or time[3] not in "012345" or time[4] not in "0123456789":
                 return render(request, "JobFinderApp/applicants.html", {
                     "posts": Job.objects.filter(user = request.user),
                     "message": "Time must be in format hh:mm!"
