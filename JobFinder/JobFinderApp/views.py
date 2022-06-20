@@ -143,6 +143,8 @@ def create_post(request):
         if request.user.is_company:
             title = request.POST["title"]
             level = request.POST.get("level", False)
+
+            # Check if there is a correct level selected
             if level == False:
                 return render(request, "JobFinderApp/create_post.html", {
                     "message": "You must select a level for your job post!"
