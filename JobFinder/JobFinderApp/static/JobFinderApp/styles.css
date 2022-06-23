@@ -10,6 +10,8 @@
 html, body {
     margin:0px;
     height:100%;
+    background: #def2ff;
+    font-family: sans-serif;
 }
 
 .bckg {

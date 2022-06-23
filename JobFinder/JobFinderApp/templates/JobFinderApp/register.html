@@ -1,8 +1,8 @@
 {% extends "JobFinderApp/layout.html" %}
 
 {% block body %}
-    <div class="container-fluid" style="padding: 10px 30px">
-        <h2>Register</h2>
+    <div class="container-fluid" style="padding: 10px 30px;">
+        <h1 class="m-3" style="text-align: center;"><strong>Register</strong></h1>
 
         {% if message %}
             <div class="alert alert-danger" style="margin-top: 30px;" role="alert">{{ message }}</div>
@@ -10,22 +10,43 @@
 
         <form action="{% url 'register' %}" method="post">
             {% csrf_token %}
-            <div class="form-group">
-                <input class="form-control" autofocus type="text" name="username" placeholder="Username" required>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="uname">Username: </label>
+                    <input class="form-control" id="uname" autofocus type="text" name="username" placeholder="ex: John-Doe71" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="email">Email: </label>
+                    <input class="form-control" id="email" type="email" name="email" placeholder="ex: john_doe_71@anymail.dom" required>
+                </div>
             </div>
-            <div class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Email Address" required>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="fname">First name: </label>
+                    <input class="form-control" id="fname" style="display: inline-block;" type="text" name="first_name" placeholder="ex: John" required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="lname">Last name: </label>
+                    <input class="form-control" id="lname" style="display: inline-block;" type="text" name="last_name" placeholder="ex: Doe" required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="bday">Birthday: </label>
+                    <input class="form-control" id="bday" style="display: inline-block;" type="date" name="date" required>
+                </div>
             </div>
-            <div class="input-group form-group">
-                <input class="form-control" style="display: inline-block;" type="text" name="first_name" placeholder="First Name" required>
-                <input class="form-control" style="display: inline-block;" type="text" name="last_name" placeholder="Last Name" required>
-                <input class="form-control" style="display: inline-block;" type="date" name="date" placeholder="Birth date" required>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="pass">Password: </label>
+                    <input id="pass" class="form-control" type="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="passc">Confirm password: </label>
+                    <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password" required>
+                </div>
             </div>
-            <div class="input-group form-group">
-                <input class="form-control" type="password" name="password" placeholder="Password" required>
-                <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password" required>
-            </div>
-            <input class="btn btn-primary" type="submit" value="Register">
+            <input class="btn btn-primary col-1 col-sm-2" style="margin-left: 42.5%" type="submit" value="Register">
         </form>
 
         Already have an account? <a href="{% url 'login' %}">Log In here.</a>

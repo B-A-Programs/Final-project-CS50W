@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector("#lang").style.display = "none";
         document.querySelector("#job").style.display = "none";
         document.querySelector("#field").style.display = "none";
+        document.querySelector("#del").style.display = "none";
     };
 
     document.querySelector("#btn_educ").onclick = function(e) {
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector("#lang").style.display = "none";
         document.querySelector("#job").style.display = "none";
         document.querySelector("#field").style.display = "none";
+        document.querySelector("#del").style.display = "none";
     };
     
     document.querySelector("#btn_lang").onclick = function(e) {
@@ -31,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector("#lang").style.display = "inline";
         document.querySelector("#job").style.display = "none";
         document.querySelector("#field").style.display = "none";
+        document.querySelector("#del").style.display = "none";
     };
     
     document.querySelector("#btn_job").onclick = function(e) {
@@ -42,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector("#lang").style.display = "none";
         document.querySelector("#job").style.display = "inline";
         document.querySelector("#field").style.display = "none";
+        document.querySelector("#del").style.display = "none";
     };
 
     document.querySelector("#btn_course").onclick = function(e) {
@@ -53,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector("#lang").style.display = "none";
         document.querySelector("#job").style.display = "none";
         document.querySelector("#field").style.display = "none";
+        document.querySelector("#del").style.display = "none";
     };
 
     document.querySelector("#btn_field").onclick = function(e) {
@@ -64,6 +69,19 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector("#lang").style.display = "none";
         document.querySelector("#job").style.display = "none";
         document.querySelector("#field").style.display = "inline";
+        document.querySelector("#del").style.display = "none";
+    };
+
+    document.querySelector("#btn_del").onclick = function(e) {
+        e.preventDefault();
+
+        document.querySelector("#desc").style.display = "none";
+        document.querySelector("#educ").style.display = "none";
+        document.querySelector("#course").style.display = "none";
+        document.querySelector("#lang").style.display = "none";
+        document.querySelector("#job").style.display = "none";
+        document.querySelector("#field").style.display = "none";
+        document.querySelector("#del").style.display = "inline";
     };
 })
 

@@ -45,7 +45,7 @@ def delete(request, id):
             Message.objects.get(pk = id).delete()
             return redirect("interviews")
         
-        return redirect("profile", request.user.username)
+        return redirect("edit", request.user.username)
 
 # Lets a user add qualities and checks that the data is correct
 def edit(request, username):
