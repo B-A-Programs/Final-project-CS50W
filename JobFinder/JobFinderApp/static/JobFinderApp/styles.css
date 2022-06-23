@@ -1,6 +1,10 @@
 /* Post mouser-over */
 .post:hover {
-    background-color: rgb(248, 245, 245);
+    background-color: rgb(202, 238, 255);
+}
+
+.post {
+  background-color: rgb(221, 253, 255);
 }
 
 .side-content {
