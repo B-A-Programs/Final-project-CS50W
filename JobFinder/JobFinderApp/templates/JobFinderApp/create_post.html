@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
 })</script> {% endblock %}
 
 {% block body %}
-    <div class="container-fluid" style="padding: 10px 30px">
-        <h2>Add a new job post</h2>
+    <div class="container-fluid" style="padding: 10px 30px; text-align: center;">
+        <h1><strong>Add a new job post</strong></h1>
 
         {% if message %}
             <div class="alert alert-danger" role="alert">{{ message }}</div>
@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     <option value="Advanced">Advanced</option>
                 </select>
             </div>
-            <textarea class="form-control" style="height: 200px;" name="description" placeholder="Job description" required></textarea>
-            <textarea class="form-control mt-3 mb-3" style="height: 200px;" name="requirements" placeholder="Job requirements" required></textarea>
-            <textarea class="form-control mt-3 mb-3" style="height: 200px;" name="compensation" placeholder="Compensation" required></textarea>
+            <textarea class="form-control" style="height: 200px;" name="description" placeholder="Job description (format exactly how you want this to be displayed)" required></textarea>
+            <textarea class="form-control mt-3 mb-3" style="height: 200px;" name="requirements" placeholder="Job requirements (format exactly how you want this to be displayed)" required></textarea>
+            <textarea class="form-control mt-3 mb-3" style="height: 200px;" name="compensation" placeholder="Compensation (format exactly how you want this to be displayed)" required></textarea>
             <select class="form-control" id="selectField" name="fieldofinterest">
                 <option disabled selected>Select job field</option>
             </select>

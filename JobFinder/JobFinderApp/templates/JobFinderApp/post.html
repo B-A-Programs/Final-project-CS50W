@@ -54,7 +54,7 @@
             <h2><strong>Applicants</strong></h2>
             {% for applicant in post.applicants.all %}
                 <a href="{% url 'profile' applicant.username %}" style="text-decoration: none; color: black;">
-                    <div class="card post" style="height: 73px;">
+                    <div class="card post">
                         <div class="card-body">
                             {% if applicant not in post.accepted.all %}
                                 <form style="display: inline;" action="{% url 'reject' applicant.id %}" method="POST">
@@ -71,20 +71,34 @@
                     </div>
                 </a>
 
-                <div id="form_{{ post.id }}_{{ applicant.id }}" style="border-color: grey; border-width: 1px; border-style: solid; padding:1%; margin-bottom: 10px; display: none;">
-                    <h6>Invite applicant to interview.</h6>
-                    <form action="{% url 'message' %}" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="job" value="{{ post.id }}">
-                        <input type="hidden" name="applicant" value="{{ applicant.id }}">
-                        <div class="input-group form-group">
-                            <input class="form-control" type="date" name="date" required>
-                            <input class="form-control" type="text" name="time" placeholder="Time for interview" required>
-                        </div>
-                        <input class="form-control mt-0" type="text" name="location" placeholder="location" required>
-                        <button class="btn btn-outline-primary mt-3" type="submit">Invite applicant to interview</button>
-                    </form>
-                </div>
+                {% if applicant not in post.accepted.all %}
+                    <div id="form_{{ post.id }}_{{ applicant.id }}" style="border-color: grey; border-width: 1px; border-style: solid; padding:1%; margin-bottom: 10px; display: none;">
+                        <h3>Invite applicant to interview.</h3>
+                        <form action="{% url 'message' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="job" value="{{ post.id }}">
+                            <input type="hidden" name="applicant" value="{{ applicant.id }}">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="date">Date of the interview: </label>
+                                    <input class="form-control" id="date" type="date" name="date" required>
+                                </div>
+                                
+                                <div class="form-group col-md-6">
+                                    <label for="time">Time of the interview: </label>
+                                    <input class="form-control" id="time" type="text" name="time" placeholder="Time" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="loc">Location of the interview</label>
+                                    <input class="form-control mt-0" id="loc" type="text" name="location" placeholder="Location" required>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary mt-3" type="submit">Invite applicant to interview</button>
+                        </form>
+                    </div>
+                {% endif %}
             {% empty %}
                 <div style="font-family: sans-serif; font-size: 18px;">
                     No applicants yet for this post!

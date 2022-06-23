@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container-fluid" style="padding: 20px 40px;">
-        <h1 style="color:rgb(49, 37, 37);">Your interviews</h1>
+        <h1 style="color:rgb(49, 37, 37); text-align: center;"><strong>Your interviews</strong></h1>
         <hr>
             
         {% for interview in interviews %}
@@ -25,7 +25,7 @@
         {% endfor %}
 
         <hr style="border-color: black; border-width: 2px;">
-        <h1 style="color:rgb(49, 37, 37);">Your applications</h1>
+        <h1 style="color:rgb(49, 37, 37); text-align: center;"><strong>Your applications</strong></h1>
         <hr>
         {% for job in job_applications %}
             <div class="card post">

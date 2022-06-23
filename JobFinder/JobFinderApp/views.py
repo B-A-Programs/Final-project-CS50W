@@ -40,6 +40,7 @@ def delete(request, id):
             Courses.objects.get(pk = id).delete()
         elif request.POST["op"] == "post" and Job.objects.get(pk = id).user == request.user:
             Job.objects.get(pk = id).delete()
+            return redirect("profile", request.user.username)
         elif request.POST["op"] == "interview" and Message.objects.get(pk = id).person == request.user:
             Message.objects.get(pk = id).job.accepted.remove(Message.objects.get(pk = id).person)
             Message.objects.get(pk = id).delete()

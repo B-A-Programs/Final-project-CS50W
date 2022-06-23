@@ -4,8 +4,8 @@
 {% block script %}<script src="{% static 'JobFinderApp/interview.js' %}"></script>{% endblock %}
 
 {% block body %}
-    <div class="container-fluid" style="padding: 20px 40px">
-        <h2><strong>Applicants</strong></h2>
+    <div class="container-fluid" style="padding: 20px 40px;">
+        <h1 style="text-align: center;"><strong>Applicants</strong></h1>
         <hr>
         {% if message %}
             <div class="alert alert-danger" style="margin-top: 30px;" role="alert">{{ message }}</div>
@@ -13,7 +13,7 @@
         {% for post in posts %}
             {% for applicant in post.applicants.all %}
                 <a href="{% url 'profile' applicant.username %}" style="text-decoration: none; color: black;">
-                    <div class="card post" style="height: 73px;">
+                    <div class="card post">
                         <div class="card-body">
                             {% if applicant not in post.accepted.all %}
                                 <form style="display: inline;" action="{% url 'reject' applicant.id %}" method="POST">
@@ -32,17 +32,29 @@
 
                 {% if applicant not in post.accepted.all %}
                     <div id="form_{{ post.id }}_{{ applicant.id }}" style="border-color: grey; border-width: 1px; border-style: solid; padding:1%; margin-bottom: 10px; display: none;">
-                        <h6>Invite applicant to interview.</h6>
+                        <h3>Invite applicant to interview.</h3>
                         <form action="{% url 'message' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="job" value="{{ post.id }}">
                             <input type="hidden" name="applicant" value="{{ applicant.id }}">
-                            <div class="input-group form-group">
-                                <input class="form-control" type="date" name="date" required>
-                                <input class="form-control" type="text" name="time" placeholder="Time for interview" required>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="date">Date of the interview: </label>
+                                    <input class="form-control" id="date" type="date" name="date" required>
+                                </div>
+                                
+                                <div class="form-group col-md-6">
+                                    <label for="time">Time of the interview: </label>
+                                    <input class="form-control" id="time" type="text" name="time" required>
+                                </div>
                             </div>
-                            <input class="form-control mt-0" type="text" name="location" placeholder="location" required>
-                            <button class="btn btn-outline-primary mt-3" type="submit">Invite applicant to interview</button>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="loc">Location of the interview</label>
+                                    <input class="form-control mt-0" id="loc" type="text" name="location" placeholder="Location" required>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary mt-3" type="submit">Invite applicant to interview</button>
                         </form>
                     </div>
                 {% endif %}
