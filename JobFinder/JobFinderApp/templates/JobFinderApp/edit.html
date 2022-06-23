@@ -118,7 +118,7 @@
 
             <div class="p-1" id="del" style="display: none;">
                 {% if person.jobs.all %}
-                    <h4><strong>Delete jobs</strong></h4>     
+                    <h2><strong>Delete jobs</strong></h2>     
                     <div class="row m-1">
                         {% for job in person.jobs.all %}
                             <div class="card post col-4">
@@ -137,7 +137,7 @@
                 {% endif %}
 
                 {% if person.education.all %}
-                    <h4><strong>Education</strong></h4>
+                    <h2><strong>Education</strong></h2>
                     <div class="row m-1">
                         {% for education in person.education.all %}
                             <div class="card post col-4">
@@ -156,7 +156,7 @@
                 {% endif %}
 
                 {% if person.languages.all %}
-                    <h4><strong>Languages</strong></h4>
+                    <h2><strong>Languages</strong></h2>
                     <div class="row m-1">
                         {% for language in person.languages.all %}
                             <div class="card post col-4">
@@ -175,7 +175,7 @@
                 {% endif %}
 
                 {% if person.courses.all %}
-                    <h4><strong>Courses</strong></h4>
+                    <h2><strong>Courses</strong></h2>
                     <div class="row m-1">
                     {% for course in person.courses.all %}
                         <div class="col-4 card post">
