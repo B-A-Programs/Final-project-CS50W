@@ -20,7 +20,7 @@
                 {% if request.user not in post.applicants.all %}
                     <form action="{% url 'apply' post.id %}" method="POST">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-success" style="float: right;">Apply to job listing</button>
+                        <button type="submit" class="btn btn-success" style="float: right;">Apply now!</button>
                     </form>
                 {% else %}
                     <form action="{% url 'apply' post.id %}" method="POST">
