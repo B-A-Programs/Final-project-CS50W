@@ -230,10 +230,9 @@ def message(request):
                     "message": "Time must be in format hh:mm!"
                 })
 
-            if request.user == company:
-                mes = Message.objects.create(person=applicant, job=job, company=company, date=date, time=time, location=location)
-                mes.save()
-                job.accepted.add(applicant)
+            mes = Message.objects.create(person=applicant, job=job, company=company, date=date, time=time, location=location)
+            mes.save()
+            job.accepted.add(applicant)
 
             return redirect("applicants")
 
