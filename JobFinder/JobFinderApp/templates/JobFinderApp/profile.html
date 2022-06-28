@@ -67,7 +67,7 @@
             <h4><strong>Education</strong></h4>
             <div class="row m-1">
                 {% for education in person.education.all %}
-                    <div class="card post1 col-4">
+                    <div class="card post1 col-6 col-lg-4">
                         <div class="card-body">
                             <h5 class="card-title mb-0">{{ education.institution }} - {{ education.level }}</h5>
                             <span style="color: grey;">From {{ education.start_date }} to {{ education.end_date }}</span>   
