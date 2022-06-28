@@ -257,7 +257,8 @@ def posts(request, field, level):
         return render(request, "JobFinderApp/posts.html", {
             'title': f"Job posts in the field of: {field} | Level: {level}",
             'posts': Job.objects.filter(field = field, level = level),
-            'field': field
+            'field': field,
+            'level': level
         })
     elif field != "all":
         return render(request, "JobFinderApp/posts.html", {

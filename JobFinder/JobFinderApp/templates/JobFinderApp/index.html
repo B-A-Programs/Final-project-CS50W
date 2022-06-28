@@ -5,21 +5,24 @@
 
 {% block body %}
 <div class="bckg">
-    <div style="padding: 3%; text-align: center;">
-        {% if message %}
-            <div class="alert alert-danger" style="margin-top: 30px;" role="alert">{{ message }}</div>
-        {% endif %}
-        <h1 class="title">Welcome to JobFinder!</h1>
-        <div class="dropdown">
-            <button class="dropbtn">Search for users in the field of: </button>
-            <div id="dp_people" class="dropdown-content">
+    <div class="cRow">
+        <div class="cCol">
+            <h1 class="title"><strong>Welcome to JobFinder!</strong></h1>
+            <span style="font-size: 30px; color: rgb(210, 237, 255);"><strong>Connect with countless posibilities</strong></span>
+        </div>
+        <div class="cCol">
+            <div class="dropdown">
+                <button class="dropbtn">Search for users in the field of:</button>
+                <div id="dp_people" class="dropdown-content">
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Search for jobs in the field of:</button>
+                <div id="dp_jobs" class="dropdown-content">
+                </div>
             </div>
         </div>
-        <div class="dropdown">
-            <button class="dropbtn">Search for jobs in the field of: </button>
-            <div id="dp_jobs" class="dropdown-content">
-            </div>
-        </div>
+        
     </div>
 </div>
 {% endblock %}

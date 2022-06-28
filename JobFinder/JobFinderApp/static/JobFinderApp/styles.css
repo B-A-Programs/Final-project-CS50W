@@ -1,11 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 /* Post mouser-over */
 .post:hover {
-    background-color: rgb(202, 238, 255);
+  background-color: rgb(202, 238, 255);
+}
+
+.post1:hover {
+  background-color: rgb(202, 238, 255);
 }
 
 .post {
-  background-color: rgb(221, 253, 255);
+background-color: rgb(221, 253, 255);
+cursor: pointer;
 }
+
+.post1 {
+background-color: rgb(221, 253, 255);
+}
+
 
 .side-content {
     margin-left: 215px;
@@ -15,22 +27,69 @@ html, body {
     margin:0px;
     height:100%;
     background: #def2ff;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+
+.cRow {
+    display: flex;
+    height: 88%;
+    align-items: center;
+}
+
+.cCol {
+    flex-basis: 50%;
+    text-align: center;
+    margin: 0 1px;
 }
 
 .bckg {
-    background-image: url('\images/Desk_img.webp');
-    height: 95%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.068), rgba(255, 255, 255, 0.068)),url('\images/Blue_planks.jpg');
     width: 100%;
+    height: 93.9vh;
 
     background-position: center;
     background-size: cover;
+    padding-left: 8%;
+    padding-right: 8%;
+    box-sizing: border-box;
 }
 
 .title {
-    color: grey;
-    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-    font-size: 70px;
+    color: rgb(255, 255, 255);
+    text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;
+    font-size: 100px;
+}
+
+#desc {
+    width: 60%;
+    margin-left: 20%;
+}
+
+@media screen and (max-width: 1100px) {
+    .title {
+      color: rgb(255, 255, 255);
+      text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;
+      font-size: 70px;
+    }
+
+    .cCol {
+      flex-basis: 50%;
+      text-align: center;
+      display: block;
+      margin: 0 1px;
+    }
+
+    .cRow {
+      padding-top: 20%;
+      display: block;
+      height: 88%;
+      align-items: center;
+    }
+
+    #desc {
+      width: 80%;
+      margin-left: 10%;
+    }
 }
 
 /* From W3Schools https://www.w3schools.com/howto/howto_css_sidebar_responsive.asp */
@@ -38,7 +97,7 @@ html, body {
     margin: 0;
     padding: 0;
     width: 200px;
-    background-color: #f1f1f1;
+    background-color: #dddddd;
     position: fixed;
     height: 100%;
     overflow: auto;
@@ -56,6 +115,10 @@ html, body {
 .sidebar a:hover {
     background-color: #555;
     color: white;
+}
+
+nav div ul li {
+    margin: 0 6px;
 }
 
 /* On screens that are less than 700px wide, make the sidebar into a topbar */
@@ -86,12 +149,12 @@ html, body {
 /* From W3Schools https://www.w3schools.com/css/css_dropdowns.asp */
 /* Style The Dropdown Button */
 .dropbtn {
-  background-color: #4e4949e5;
-  color: rgba(255, 255, 255, 0.541);
+  background-color: #7ecee2;
+  color: rgb(23, 70, 85);
   padding: 10px;
   margin-top: 2%;
   font-size: 20px;
-  min-width: 350px;
+  width: 400px;
   border: none;
   cursor: pointer;
 }
@@ -105,22 +168,22 @@ html, body {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #a39d9dce;
-  min-width: 350px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  background-color: #82d4dfe5;
+  width: 400px;
+  box-shadow: 0px 8px 16px 0px rgba(47, 168, 216, 0.719);
   z-index: 1;
 }
 
 /* Links inside the dropdown */
 .dropdown-content a {
   color: rgba(34, 33, 33, 0.829);
-  padding: 8px;
+  padding: 5px;
   text-decoration: none;
   display: block;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #a89e9ece}
+.dropdown-content a:hover {background-color: #82e6f8d5}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
@@ -129,5 +192,5 @@ html, body {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-  background-color: #616064ce;
+  background-color: #57d6dfee;
 }

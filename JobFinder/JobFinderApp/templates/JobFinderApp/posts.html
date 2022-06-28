@@ -13,9 +13,15 @@
                 </div>
             </div>
         {% endif %}
-        <h1 style="color:rgb(49, 37, 37);">
-            <strong>{{ title }}</strong>
-        </h1>
+        {% if not level %}
+            <h1 style="color:rgb(49, 37, 37);">
+                <strong>{{ title }}</strong>
+            </h1>
+        {% else %}
+            <h1 style="color:rgb(49, 37, 37); text-align: left;">
+                <strong>{{ title }}</strong>
+            </h1>
+        {% endif %}
         <hr style="width: 90%;">
 
         {% for post in posts %}
