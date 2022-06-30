@@ -2,22 +2,25 @@
 
 /* Post mouser-over */
 .post:hover {
-  background-color: rgb(202, 238, 255);
+    background-color: rgb(202, 238, 255);
+    transition: background-color 400ms ease-out;
 }
 
 .post1:hover {
-  background-color: rgb(202, 238, 255);
+    background-color: rgb(202, 238, 255);
+    transition: background-color 300ms ease-out;
 }
 
 .post {
-background-color: rgb(221, 253, 255);
-cursor: pointer;
+    background-color: rgb(221, 253, 255);
+    transition: background-color 300ms ease-in;
+    cursor: pointer;
 }
 
 .post1 {
-background-color: rgb(221, 253, 255);
+    background-color: rgb(221, 253, 255);
+    transition: background-color 400ms ease-in;
 }
-
 
 .side-content {
     margin-left: 215px;
