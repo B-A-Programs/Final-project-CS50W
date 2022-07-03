@@ -27,7 +27,7 @@
         <div class="row m-1">
         {% for post in posts %}
             <div class="card post col-12 col-md-6">
-                <a href="{% url 'post' post.id %}" style="text-decoration: none; color: black;"></a>
+                <a href="{% url 'post' post.id %}" style="text-decoration: none; color: black;">
                     <div class="card-body pb-1">
                         <h3 class="card-title mb-0"><strong>{{ post.user.username }}</strong></h3>
                         <h5 style="color: rgb(63, 59, 59);">{{ post.title }}</h5> 
