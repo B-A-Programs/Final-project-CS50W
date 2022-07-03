@@ -24,16 +24,17 @@
         {% endif %}
         <hr style="width: 90%;">
 
+        <div class="row m-1">
         {% for post in posts %}
-            <a href="{% url 'post' post.id %}" style="text-decoration: none; color: black;">
-            <div class="card post" style="width: 70%; margin-left: 15%;">
-                <div class="card-body pb-1">
-                    <h3 class="card-title mb-0"><strong>{{ post.user.username }}</strong></h3>
-                    <h5 style="color: rgb(63, 59, 59);">{{ post.title }}</h5> 
-                    <p class="mt-1">Field: <strong>{{ post.field }}</strong> | <span style="color: {{ post.color }}">Level: <strong>{{ post.level }}</strong></span></p> 
-                </div>
+            <div class="card post col-12 col-md-6">
+                <a href="{% url 'post' post.id %}" style="text-decoration: none; color: black;"></a>
+                    <div class="card-body pb-1">
+                        <h3 class="card-title mb-0"><strong>{{ post.user.username }}</strong></h3>
+                        <h5 style="color: rgb(63, 59, 59);">{{ post.title }}</h5> 
+                        <p class="mt-1">Field: <strong>{{ post.field }}</strong> | <span style="color: {{ post.color }}">Level: <strong>{{ post.level }}</strong></span></p> 
+                    </div>
+                </a>
             </div>
-            </a>
         {% empty %}
             <div style="padding-left: 1%;">
                 {% if title != "All posts" %}
@@ -43,5 +44,6 @@
                 {% endif %}
             </div>
         {% endfor %}
+        </div>
     </div>
 {% endblock %}
