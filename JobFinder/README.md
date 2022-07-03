@@ -25,5 +25,5 @@ To achieve this the app uses multiple Django models, has many views each of whic
 ## How to use
 - Install project dependencies by running `pip install -r requirements.txt`.
 - Make and apply migrations by running `python manage.py makemigrations` and `python manage.py migrate`.
-- Create superuser with `python manage.py createsuperuser`. This step is optional, allowing you to manage the database by going on the route /admin.
+- Create superuser with `python manage.py createsuperuser`. This step is optional, allowing you to manage the database by going on the route `/admin`.
 - Go to website address and register an account (either as a user or a company).
